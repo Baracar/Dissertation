@@ -87,11 +87,6 @@ public class BaseEnemy : NetworkTransform
         {
             return;
         }
-        //if (!IsSpawned || !HasAuthority)
-        //{
-        //    Debug.Log("spawn - " + IsSpawned + " authority - " + HasAuthority);
-        //    return;
-        //}
 
         if ((transform.position - targetCoordReal).magnitude < 0.3f)
         {
@@ -121,8 +116,6 @@ public class BaseEnemy : NetworkTransform
         dir = dir - rigidbody.linearVelocity;
         
         rigidbody.AddForce(dir, ForceMode.VelocityChange);
-        
-        //rigidbody.linearVelocity = dir;
     }
 
     void updateTargetCoord()
@@ -134,7 +127,6 @@ public class BaseEnemy : NetworkTransform
         }
         lastTargetCoord = getCurCoordTile();
         setRandomNextTarget();
-        //timeLeft = 0f;
 
         targetCoordReal = new Vector3(targetCoord.x * map.tileSize, 0, targetCoord.y * map.tileSize) + shift;
     }
@@ -210,8 +202,6 @@ public class BaseEnemy : NetworkTransform
 
     protected override void OnOwnershipChanged(ulong previous, ulong current)
     {
-        //Debug.Log(this + " change owner from " + previous + " to " + current);
-        //if (map.strategistId != 0 && map.strategistId != current)
         if (current != 2)
         {
             networkObject.ChangeOwnership(2);

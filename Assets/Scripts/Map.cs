@@ -64,15 +64,8 @@ public class Map : NetworkBehaviour
 
     public static Map instance;
 
-    public GameObject startTile;
-    public GameObject finishTile;
-    public GameObject pathTile;
-    public GameObject subborderTile;
-    public GameObject borderTile;
-
     public void Spawn(ulong strategistId)
     {
-        //this.strategistId = strategistId; 
         networkObject = GetComponent<NetworkObject>();
         networkObject.SpawnWithOwnership(strategistId);
     }
@@ -222,20 +215,6 @@ public class Map : NetworkBehaviour
             }
         }
         return newTileMapRoute;
-    }
-
-    [Rpc(SendTo.Owner)]
-    public void GetTileMapRpc()
-    {
-        Debug.Log("to owner");
-        //tileMap = SendTileMapRpc();
-    }
-
-    [Rpc(SendTo.NotOwner)]
-    public void SendTileMapRpc()
-    {
-        Debug.Log("from owner");
-        //return tileMap;
     }
 
     bool IsTilePassable(Tile[,] newTileMap, int[,] newTileMapRoute, int x, int y, int dX, int dY)

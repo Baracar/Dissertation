@@ -67,8 +67,6 @@ public class Tile : NetworkBehaviour
 
     protected override void OnOwnershipChanged(ulong previous, ulong current)
     {
-        //Debug.Log(this + " change owner from " + previous + " to " + current);
-        //if (map.strategistId != 0 && map.strategistId != current)
         if (current != 1)
         {
             networkObject.ChangeOwnership(1);
@@ -77,7 +75,6 @@ public class Tile : NetworkBehaviour
 
     void OnMouseDown()
     {
-        //Debug.Log(networkObject.OwnerClientId);
         if (networkObject.IsOwner)
         {
             Strategist.instance.ReplaceTower(this);

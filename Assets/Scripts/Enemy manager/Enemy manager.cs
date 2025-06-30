@@ -36,17 +36,6 @@ public class EnemyManager : NetworkBehaviour
         NextWave();
     }
 
-    void Update()
-    {
-        //if (!spawnEnable)
-        //    return;
-        //timer += Time.deltaTime;
-        //if(timer > 1f / spawnRate){
-        //    timer = 0f;
-        //    SpawnEnemy();
-        //}
-    }
-
     public void NextWave()
     {
         if (curWave == waves.Length)
@@ -74,18 +63,6 @@ public class EnemyManager : NetworkBehaviour
         map.enemyManager = this;
         tileMapRoute = map.StartRoute();
 
-        //GetComponent<NetworkObject>().SpawnWithOwnership(NetworkObject.OwnerClientId);
         GetComponent<NetworkObject>().SpawnWithOwnership(shooterId);
     }
-
-    void SpawnEnemy(){
-        if(enemyList.Count > 0){
-            BaseEnemy enemy = Instantiate(enemyList[0], map.Vector2to3(map.start), new Quaternion());
-            enemy.map = map;
-            enemy.enemyManager = this;
-            var enemyNetworkObject = enemy.GetComponent<NetworkObject>();
-            enemyNetworkObject.SpawnWithOwnership(shooterId, true);
-        }
-    }
-
 }

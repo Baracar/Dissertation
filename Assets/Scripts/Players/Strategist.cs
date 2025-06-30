@@ -82,14 +82,11 @@ public class Strategist : NetworkTransform
     private float yaw = 0;
     private float maxLookAngle = 90;
 
-    //private SyncVar<float> moneySync = new SyncVar<float>();
-
     private void Start()
     {
         instance = this;
 
         Debug.Log("Camera strategist - " + NetworkObject.IsOwner);
-        //moneySync.value.Add(0f);
 
         if (NetworkObject.IsOwner)
         {
@@ -189,15 +186,12 @@ public class Strategist : NetworkTransform
             selectedTower = null;
             return;
         }
-        //newTile.transform.position = oldTile.transform.position;
 
         Debug.Log("Despawn - " + oldTile.gameObject + " and spawn - " + newTile.gameObject);
-        //Destroy(oldTile.gameObject);
         newTile.Spawn(networkId);
         oldTile.Despawn();
 
         AddMoney(-newTile.cost);
-        //newTile.networkObject.SpawnWithOwnership(networkId, true);
 
         selectedTower = null;
     }
@@ -217,9 +211,6 @@ public class Strategist : NetworkTransform
         money += amount;
         UpdateMoney();
     }
-
-
-
     private void SendMoney()
     {
         while (money >= 100f)
@@ -264,75 +255,3 @@ public class Strategist : NetworkTransform
         Debug.Log("Get " + amount + ", total - " + money);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//[Serializable]
-//[GenerateSerializationForGenericParameter(0)]
-//public class SyncVar<T> : NetworkVariableBase
-//{
-//    public List<T> value = new List<T>(1);
-
-//    public override void WriteField(FastBufferWriter writer)
-//    {
-//        // Serialize the data we need to synchronize
-//        writer.WriteValueSafe(value.Count);
-//        for (var i = 0; i < value.Count; ++i)
-//        {
-//            var dataEntry = value[i];
-//            // NetworkVariableSerialization<T> is used for serializing generic types
-//            NetworkVariableSerialization<T>.Write(writer, ref dataEntry);
-//        }
-//    }
-
-//    public override void ReadField(FastBufferReader reader)
-//    {
-//        // De-Serialize the data being synchronized
-//        var itemsToUpdate = (int)0;
-//        reader.ReadValueSafe(out itemsToUpdate);
-//        value.Clear();
-//        for (int i = 0; i < itemsToUpdate; i++)
-//        {
-//            T newEntry = default;
-//            // NetworkVariableSerialization<T> is used for serializing generic types
-//            NetworkVariableSerialization<T>.Read(reader, ref newEntry);
-//            value.Add(newEntry);
-//        }
-//    }
-
-//    //public T value = default;
-
-//    //public override void WriteField(FastBufferWriter writer)
-//    //{
-//    //    // Serialize the data we need to synchronize
-//    //    writer.WriteValueSafe(1);
-//    //    var dataEntry = value;
-//    //    NetworkVariableSerialization<T>.Write(writer, ref dataEntry);
-//    //}
-
-//    //public override void ReadField(FastBufferReader reader)
-//    //{
-//    //    T newEntry = default;
-//    //    // NetworkVariableSerialization<T> is used for serializing generic types
-//    //    NetworkVariableSerialization<T>.Read(reader, ref newEntry);
-//    //    value = newEntry;
-//    //}
-
-//    public override void ReadDelta(FastBufferReader reader, bool keepDirtyDelta)
-//    {
-//        // Do nothing for this example
-//    }
-
-//    public override void WriteDelta(FastBufferWriter writer)
-//    {
-//        // Do nothing for this example
-//    }
-//}

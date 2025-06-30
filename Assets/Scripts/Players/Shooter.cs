@@ -95,8 +95,6 @@ public class Shooter : NetworkTransform
 
             upgrades.Add(new SniperUpgrade(0.1f));
             upgrades.Add(new MassUpgrade(0.01f));
-            
-            UpgradeUI();
         }
 
     }
@@ -182,8 +180,6 @@ public class Shooter : NetworkTransform
         }
         Strategist.instance.AddMoney(cost * multiplier);
     }
-
-
 
     public RectTransform UI;
     public UpgradeCard upgradeCard;
